@@ -53,6 +53,7 @@ export default function TagSelector({
           const pointerClass = mode === 'selectable' ? 'cursor-pointer' : '';
           return (
             <button
+              type="button"
               key={`${tag}-${index}`}
               onClick={() => toggleTag(tag)}
               className={clsx(baseClass, activeClass, pointerClass)}
