@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import CheckIcon from '@/assets/icons/ic_check.svg';
 import PlusIcon from '@/assets/icons/ic_plus.svg';
 import { clsx } from 'clsx';
@@ -27,18 +27,17 @@ export default function TagSelector({
   const toggleTag = useCallback(
     (tag: string) => {
       if (mode === 'readonly') return;
-      setSelected((prev) =>
-        prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
-      );
-    },
-    [mode],
-  );
+      setSelected((prev) => {
+        const newSelected = prev.includes(tag)
+          ? prev.filter((t) => t !== tag)
+          : [...prev, tag];
 
-  useEffect(() => {
-    if (mode === 'selectable') {
-      onChange?.(selected);
-    }
-  }, [selected, onChange, mode]);
+        onChange?.(newSelected);
+        return newSelected;
+      });
+    },
+    [mode, onChange],
+  );
 
   return (
     <div>
