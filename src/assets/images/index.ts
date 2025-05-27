@@ -1,0 +1,12 @@
+export { default as ImgCard01 } from './img_card01.jpg';
+export { default as ImgCard02 } from './img_card02.jpg';
+export { default as ImgCard03 } from './img_card03.jpg';
+export { default as ImgCard04 } from './img_card04.jpg';
+export { default as ImgCard05 } from './img_card05.jpg';
+export { default as ImgCard06 } from './img_card06.jpg';
+export { default as ImgCard07 } from './img_card07.jpg';
+export { default as ImgCard08 } from './img_card08.jpg';
+export { default as ImgCard09 } from './img_card09.jpg';
+export { default as ImgCard10 } from './img_card10.jpg';
+export { default as ImgCard11 } from './img_card11.jpg';
+export { default as ImgCard12 } from './img_card12.jpg';
