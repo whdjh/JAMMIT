@@ -8,8 +8,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko">
-      <body>
+    <html lang="ko" className="bg-[#1A1A1E]">
+      <body className="bg-[#1A1A1E]">
         <Gnb />
         <main>{children}</main>
       </body>

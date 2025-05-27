@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+
+/* 그룹 상세 커스텀 스타일 */
+@layer utilities {
+  .group-info-title {
+    @apply text-[1.5rem] font-bold text-gray-100;
+  }
+  .group-info-subtitle {
+    @apply text-[1rem] text-gray-400;
+  }
+
+  .group-info-text {
+    @apply text-[1rem] text-gray-100;
+  }
+
+  .group-info-divider-line {
+    @apply my-[1.25rem] border-t border-[#2d3035];
+  }
+}
