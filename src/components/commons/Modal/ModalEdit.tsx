@@ -6,29 +6,7 @@ import TextArea from '../Textarea';
 import Button from '../Button';
 import { EditFormData } from '@/types/modal';
 import TagSection from '../TagSection';
-
-const SESSION_TAGS = [
-  '보컬',
-  '일렉 기타',
-  '드럼',
-  '통기타',
-  '베이스',
-  '현악기',
-  '타악기',
-];
-
-const GENRE_TAGS = [
-  '락/메탈',
-  '팝',
-  '발라드',
-  '인디',
-  '얼터너티브',
-  '재즈',
-  '펑크',
-  '어쿠스틱',
-  '포크',
-  'R&B',
-];
+import { SESSION_TAGS, GENRE_TAGS } from '@/constants/tags';
 
 interface ModalEditProps {
   /** "확인" 버튼 클릭 시 실행할 콜백 */

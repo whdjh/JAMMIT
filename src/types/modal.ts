@@ -3,7 +3,7 @@ export interface JamFormData {
   place: string;
   day: string;
   image: File;
-  people: {
+  session: {
     electricGuitar: number;
     acousticGuitar: number;
     bass: number;
@@ -14,7 +14,7 @@ export interface JamFormData {
     string: number;
   };
   end: string;
-  tag: string[];
+  genre: string[];
   introduction: string;
 }
 

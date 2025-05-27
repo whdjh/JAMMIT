@@ -1,6 +1,7 @@
 'use client';
 import clsx from 'clsx';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
+import { useQueryTab } from '@/hooks/useQueryTab';
 
 interface GroupPageLayoutProps {
   banner: ReactNode;
@@ -13,7 +14,11 @@ export default function GroupPageLayout({
   actionButtons,
   children,
 }: GroupPageLayoutProps) {
-  const [activeTab, setActiveTab] = useState<'recruit' | 'members'>('recruit');
+  const { activeTab, setTab } = useQueryTab<'recruit' | 'members'>(
+    'tab',
+    'recruit',
+    ['recruit', 'members'],
+  );
 
   // TODO: 참여 멤버 수 관리 받아올 수 있게바꾸기
   const membersCount = 2;
@@ -34,7 +39,7 @@ export default function GroupPageLayout({
       {/* 탭 */}
       <div className="flex w-full justify-center gap-[1.25rem] py-[1.25rem]">
         <button
-          onClick={() => setActiveTab('recruit')}
+          onClick={() => setTab('recruit')}
           className={tabClass(activeTab === 'recruit')}
         >
           모집글
@@ -42,7 +47,7 @@ export default function GroupPageLayout({
 
         <div className="flex items-center gap-[0.2rem]">
           <button
-            onClick={() => setActiveTab('members')}
+            onClick={() => setTab('members')}
             className={tabClass(activeTab === 'members')}
           >
             참여멤버
