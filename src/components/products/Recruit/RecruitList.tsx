@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import RecruitCard from '../../commons/RecruitCard';
 import Dropdown from '../../commons/Dropdown';
 import ArrowDown from '@/assets/icons/ic_arrowdown.svg';
-import { ImCard01, ImCard02, ImCard03, ImCard04 } from '@/assets/images';
+import { ImgCard01, ImgCard02, ImgCard03, ImgCard04 } from '@/assets/images';
 import { RecruitCardData } from '@/types/card';
 
 export default function RecruitList() {
@@ -13,7 +13,7 @@ export default function RecruitList() {
       title: '그린데이 좋아하시는 분 계세요?',
       author: '잼잼러',
       tags: ['얼터너티브', '락', '포크', '어쿠스틱', '하드락', '모던락'],
-      thumbnailUrl: ImCard01,
+      thumbnailUrl: ImgCard01,
       dday: '2024-06-01T23:59:59.000Z',
       current: 3,
       total: 5,
@@ -29,7 +29,7 @@ export default function RecruitList() {
       title: '재즈 밴드 드러머 구해요!',
       author: '몽글몽글',
       tags: ['재즈', '드럼'],
-      thumbnailUrl: ImCard02,
+      thumbnailUrl: ImgCard02,
       dday: '2024-06-01T23:59:59.000Z',
       current: 2,
       total: 4,
@@ -45,7 +45,7 @@ export default function RecruitList() {
       title: '여성 보컬 모집합니다 🎤',
       author: '하이텐션',
       tags: ['팝', '보컬'],
-      thumbnailUrl: ImCard03,
+      thumbnailUrl: ImgCard03,
       dday: '2024-06-01T23:59:59.000Z',
       current: 1,
       total: 3,
@@ -61,7 +61,7 @@ export default function RecruitList() {
       title: '홍대에서 매주 합주하실 분!',
       author: '루프탑',
       tags: ['인디', '홍대'],
-      thumbnailUrl: ImCard04,
+      thumbnailUrl: ImgCard04,
       dday: '2024-06-01T23:59:59.000Z',
       current: 4,
       total: 5,
