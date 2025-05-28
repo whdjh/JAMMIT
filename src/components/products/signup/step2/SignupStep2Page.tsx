@@ -1,0 +1,149 @@
+'use client';
+
+import AuthCard from '@/components/commons/AuthCard';
+import Button from '@/components/commons/Button';
+import Input from '@/components/commons/Input';
+import ProfileImageUpload from '@/components/commons/ProfileImageUpload';
+import TagSection from '@/components/commons/TagSection';
+import { GENRE_TAGS, SESSION_TAGS } from '@/constants/tags';
+import { useSignupStore } from '@/stores/useSignupStore';
+import { useCallback } from 'react';
+import {
+  Controller,
+  FormProvider,
+  SubmitHandler,
+  useForm,
+} from 'react-hook-form';
+
+interface FormValues {
+  image: File;
+  nickname: string;
+  session: string[];
+  genre: string[];
+}
+
+export default function SignupStep2Page() {
+  const { email, name, password } = useSignupStore();
+  const methods = useForm<FormValues>({
+    mode: 'all',
+    defaultValues: { image: undefined, nickname: '', session: [], genre: [] },
+    shouldUnregister: false,
+  });
+
+  const {
+    formState: { isValid },
+    reset,
+    setValue,
+    control,
+  } = methods;
+
+  const handleSessionTagChange = useCallback(
+    (selected: string[]) => {
+      setValue('session', selected);
+    },
+    [setValue],
+  );
+
+  const handleGenreTagChange = useCallback(
+    (selected: string[]) => {
+      setValue('genre', selected);
+    },
+    [setValue],
+  );
+
+  const tagSections = [
+    {
+      key: 'session',
+      label: '담당 세션',
+      tags: SESSION_TAGS,
+      initialSelected: [],
+      onChange: handleSessionTagChange,
+    },
+    {
+      key: 'genre',
+      label: '선호 장르',
+      tags: GENRE_TAGS,
+      initialSelected: [],
+      onChange: handleGenreTagChange,
+    },
+  ];
+
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const fullData = {
+      ...data,
+      email,
+      name,
+      password,
+    };
+
+    console.log('회원가입 최종 데이터', fullData);
+    useSignupStore.getState().resetSignupData();
+
+    reset();
+  };
+
+  return (
+    <AuthCard title="프로필 만들기">
+      <div className="flex w-[25.125rem] flex-col items-center">
+        <FormProvider {...methods}>
+          <form
+            onSubmit={methods.handleSubmit(onSubmit)}
+            noValidate
+            className="flex w-full flex-col gap-[1.5rem]"
+          >
+            <div className="mx-auto">
+              <Controller
+                name="image"
+                control={control}
+                render={({ field }) => (
+                  <ProfileImageUpload
+                    imageFile={field.value}
+                    onFileChange={field.onChange}
+                    profileSize={128}
+                    editIconSize={41}
+                    offsetX={80}
+                    offsetY={40}
+                  />
+                )}
+              />
+            </div>
+
+            <Input
+              name="nickname"
+              type="text"
+              label="닉네임"
+              placeholder="닉네임을 입력해주세요."
+              rules={{
+                required: '닉네임은 필수 입력입니다.',
+              }}
+            />
+
+            <div className="flex flex-col gap-4">
+              {tagSections.map(
+                ({ key, label, tags, initialSelected, onChange }) => (
+                  <TagSection
+                    key={key}
+                    label={label}
+                    tags={tags}
+                    initialSelected={initialSelected}
+                    onChange={onChange}
+                  />
+                ),
+              )}
+            </div>
+
+            <Button
+              variant="solid"
+              size="large"
+              className="w-full"
+              type="submit"
+              disabled={!isValid}
+            >
+              확인
+            </Button>
+          </form>
+        </FormProvider>
+      </div>
+    </AuthCard>
+  );
+}

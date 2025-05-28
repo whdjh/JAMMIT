@@ -101,6 +101,7 @@ function Input({
       </label>
       <div className="relative w-full">
         <input
+          id={name}
           type={IsPwd ? (showPassword ? 'text' : 'password') : type}
           onFocus={onInputFocus}
           placeholder={placeholder}

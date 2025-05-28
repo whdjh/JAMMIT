@@ -1,3 +1,5 @@
-export default function LoginPage() {
-  return <>로그인페이지입니다</>;
+import LoginPage from '@/components/products/login/LoginPage';
+
+export default function Login() {
+  return <LoginPage />;
 }

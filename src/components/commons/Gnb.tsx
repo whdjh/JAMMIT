@@ -20,62 +20,64 @@ export default function Gnb() {
   };
 
   return (
-    <header className="flex h-[3.75rem] w-full items-center justify-center bg-black px-[1.75rem]">
-      <div className="flex w-full max-w-[74.875rem] items-center justify-between text-white">
-        <nav className="flex gap-[1.5rem]">
-          <Link
-            href="/"
-            data-active={pathname === '/'}
-            className="opacity-80 data-[active=true]:opacity-100"
-          >
-            JAMMIT
-          </Link>
-          {navItems.map(({ href, label }) => (
+    <header className="fixed top-0 left-0 z-50 w-full">
+      <div className="flex h-[3.75rem] w-full items-center justify-center bg-black px-[1.75rem]">
+        <div className="flex w-full max-w-[74.875rem] items-center justify-between text-white">
+          <nav className="flex gap-[1.5rem]">
             <Link
-              key={href}
-              href={href}
-              data-active={pathname === href}
+              href="/"
+              data-active={pathname === '/'}
               className="opacity-80 data-[active=true]:opacity-100"
             >
-              {label}
+              JAMMIT
             </Link>
-          ))}
-        </nav>
-        <div>
-          {isLoggedIn ? (
-            <div className="relative h-[2.5rem] w-[2.5rem]">
-              <button
-                className="cursor-pointer"
-                onClick={() => setIsDropdownOpen((prev) => !prev)}
+            {navItems.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                data-active={pathname === href}
+                className="opacity-80 data-[active=true]:opacity-100"
               >
-                <DefaultProfileImage />
-              </button>
-              {isDropdownOpen && (
-                <div className="absolute right-0 w-[8.875rem] overflow-hidden rounded-[0.75rem] bg-white text-base text-black shadow-xl">
-                  <Link
-                    href="/mypage"
-                    className="flex h-[2.75rem] w-full items-center justify-center hover:bg-gray-100"
-                  >
-                    마이페이지
-                  </Link>
-                  <button
-                    className="block h-[2.75rem] w-full cursor-pointer hover:bg-gray-100"
-                    onClick={handleLogout}
-                  >
-                    로그아웃
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <Link
-              data-active={pathname === '/login'}
-              className="opacity-80 data-[active=true]:opacity-100"
-              href="/login"
-            >
-              로그인
-            </Link>
-          )}
+                {label}
+              </Link>
+            ))}
+          </nav>
+          <div>
+            {isLoggedIn ? (
+              <div className="relative h-[2.5rem] w-[2.5rem]">
+                <button
+                  className="cursor-pointer"
+                  onClick={() => setIsDropdownOpen((prev) => !prev)}
+                >
+                  <DefaultProfileImage />
+                </button>
+                {isDropdownOpen && (
+                  <div className="absolute right-0 w-[8.875rem] overflow-hidden rounded-[0.75rem] bg-white text-base text-black shadow-xl">
+                    <Link
+                      href="/mypage"
+                      className="flex h-[2.75rem] w-full items-center justify-center hover:bg-gray-100"
+                    >
+                      마이페이지
+                    </Link>
+                    <button
+                      className="block h-[2.75rem] w-full cursor-pointer hover:bg-gray-100"
+                      onClick={handleLogout}
+                    >
+                      로그아웃
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                data-active={pathname === '/login'}
+                className="opacity-80 data-[active=true]:opacity-100"
+                href="/login"
+              >
+                로그인
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </header>
