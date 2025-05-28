@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import ModalWrapper from '../ModalWrapper';
+import ModalWrapper from '../Modal/ModalWrapper';
 
 jest.mock('@/assets/icons/ic_Invisibility.svg', () => {
   return function MockInVisibilityIcon() {

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import ModalInteraction from '../ModalInteraction';
+import ModalInteraction from '../Modal/ModalInteraction';
 
 jest.mock('@/assets/icons/ic_Invisibility.svg', () => {
   return function MockInVisibilityIcon() {

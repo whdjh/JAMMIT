@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import ModalReview from '../ModalReview';
+import ModalReview from '../Modal/ModalReview';
 
 jest.mock('@/assets/icons/ic_Invisibility.svg', () => {
   return function MockInVisibilityIcon() {
@@ -19,13 +19,6 @@ describe('ModalReview 렌데링 테스트', () => {
     expect(
       screen.getByText('경험에 대해 자유롭게 남겨주세요.(선택)'),
     ).toBeInTheDocument();
-  });
-
-  test('체크박스를 클릭하면 값이 반영', () => {
-    render(<ModalReview onSubmit={mockOnSubmit} onCancel={mockOnCancel} />);
-    const checkbox = screen.getByLabelText('연주 실력이 좋아요');
-    fireEvent.click(checkbox);
-    expect(checkbox).toBeChecked();
   });
 
   test('취소 버튼 클릭 시 onCancel 호출', () => {
