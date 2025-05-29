@@ -1,40 +1,35 @@
 @import 'tailwindcss';
 @import './utililtes.css';
+@import 'tw-animate-css';
 
 :root {
   --background: #1a1a1e;
-  --foreground: #F3F4F6;
-  --primary:#C179FF;
-  --bg-34343A:#34343A;
-  --gray-50:#68696C;
+  --foreground: #f3f4f6;
+  --primary: #c179ff;
+  --bg-34343A: #34343a;
+  --gray-50: #68696c;
 }
 
 @theme {
-  --breakpoint-pc:62.5rem;
+  --breakpoint-pc: 62.5rem;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 /* 커스텀 글로벌 스타일 추가 가능 */
 @layer base {
   html {
-    --font-pretendard: 'Pretendard Variable', Pretendard, -apple-system,
-      BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI',
-      'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
-      'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+    --font-pretendard:
+      'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+      system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+      'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji',
+      'Segoe UI Symbol', sans-serif;
   }
   body {
     font-family: var(--font-pretendard);
   }
-  html, body {
+  html,
+  body {
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
@@ -108,7 +103,20 @@
   }
 
   input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 1000px #34343A inset;
-    -webkit-text-fill-color: white
+    -webkit-box-shadow: 0 0 0 1000px #34343a inset;
+    -webkit-text-fill-color: white;
   }
+}
+
+::-webkit-scrollbar {
+  width: 0.1875rem;
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 0.5rem;
 }
