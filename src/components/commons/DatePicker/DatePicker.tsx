@@ -88,16 +88,11 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
       <PopoverContent
         sideOffset={4}
         align="start"
-        className="box-shadow-lg flex h-[16.625rem] w-auto overflow-hidden border-[0.0625rem] border-[#505057] bg-[#34343a] p-[1.5rem] pr-[0.125rem]"
+        className="box-shadow-lg flex h-[16.625rem] w-auto overflow-hidden border-[0.0625rem] border-[#505057] bg-[#34343a] p-[1.375rem] pr-[0.125rem]"
       >
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={handleDateChange}
-          initialFocus
-        />
+        <Calendar mode="single" selected={date} onSelect={handleDateChange} />
 
-        <div className="mx-[0.1875rem] h-full w-0 border-r-[0.0625rem] border-[#4a4e55]" />
+        <div className="mx-[0.1875rem] ml-[1.0625rem] h-full w-0 border-r-[1px] border-[#4a4e55]" />
 
         <div className="flex justify-between">
           <TimePicker items={HOUR_OPTIONS} selected={hour} onSelect={setHour} />
