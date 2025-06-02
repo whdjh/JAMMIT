@@ -52,18 +52,14 @@ export default function ModalEdit({
 
   const handleSeesionTagChange = useCallback(
     (selected: string[]) => {
-      setTimeout(() => {
-        setValue('session', selected);
-      }, 0);
+      setValue('session', selected);
     },
     [setValue],
   );
 
   const handleGenreTagChange = useCallback(
     (selected: string[]) => {
-      setTimeout(() => {
-        setValue('genre', selected);
-      }, 0);
+      setValue('genre', selected);
     },
     [setValue],
   );

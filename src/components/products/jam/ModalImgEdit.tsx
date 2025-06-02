@@ -1,0 +1,88 @@
+'use client';
+
+import Image, { StaticImageData } from 'next/image';
+import { memo, useRef, useState } from 'react';
+import { useClickOutside } from '@/hooks/useClickOutside';
+import Button from '@/components/commons/Button';
+import bannerImages from '@/constants/bannerImages';
+
+const FIRST_RENDERING = 12;
+
+interface ModalImgEditProps {
+  /** "확인" 버튼 클릭 시 실행할 콜백 */
+  onSubmit: (image: StaticImageData) => void;
+  onClose: () => void;
+}
+
+function ModalImgEdit({ onSubmit, onClose }: ModalImgEditProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
+  useClickOutside(modalRef, onClose);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  return (
+    <>
+      <div
+        className="fixed top-0 left-0 z-40 h-screen w-screen bg-transparent backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div
+        ref={modalRef}
+        className="fixed top-1/2 left-1/2 z-50 h-[25.625rem] w-[57.75rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-3xl border-0 bg-[#242429] px-[3.25rem] py-[2.75rem]"
+      >
+        <div className="flex flex-col items-center gap-[2rem]">
+          <div className="flex flex-col items-center">
+            <h1 className="text-2xl font-semibold">이미지 선택</h1>
+            <h2 className="text-sm font-semibold text-gray-400">
+              모임을 대표할 이미지를 선택해주세요!(필수)
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-6 gap-[1.25rem]">
+            {[...Array(FIRST_RENDERING)].map((_, idx) => (
+              <div
+                key={idx}
+                className={`cursor-pointer rounded-lg border-2 ${
+                  selectedIndex === idx
+                    ? 'border-[#9900FF]'
+                    : 'border-transparent'
+                }`}
+                onClick={() => setSelectedIndex(idx)}
+              >
+                <Image
+                  src={bannerImages[idx]}
+                  alt={`모임 배너 ${idx + 1}`}
+                  priority
+                  width={120}
+                  height={75}
+                />
+              </div>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            className="text-sm font-semibold text-purple-600"
+          >
+            더보기
+          </button>
+        </div>
+        <div className="absolute top-[3.25rem] right-[2.75rem]">
+          <Button
+            variant="solid"
+            size="small"
+            disabled={selectedIndex === null}
+            onClick={() => {
+              if (selectedIndex !== null) {
+                onSubmit(bannerImages[selectedIndex]);
+              }
+            }}
+          >
+            완료
+          </Button>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default memo(ModalImgEdit);

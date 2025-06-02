@@ -22,3 +22,25 @@ export const SESSION_TAGS = [
   '타악기',
   '현악기',
 ];
+
+export const SESSION_KEY_MAP: { [korean: string]: keyof InstrumentCount } = {
+  보컬: 'vocal',
+  일렉기타: 'electricGuitar',
+  통기타: 'acousticGuitar',
+  베이스: 'bass',
+  건반: 'keyboard',
+  드럼: 'drum',
+  타악기: 'percussion',
+  현악기: 'string',
+};
+
+export interface InstrumentCount {
+  electricGuitar: number;
+  acousticGuitar: number;
+  bass: number;
+  drum: number;
+  vocal: number;
+  keyboard: number;
+  percussion: number;
+  string: number;
+}

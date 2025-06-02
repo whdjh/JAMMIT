@@ -7,12 +7,14 @@ interface GroupPageLayoutProps {
   banner: ReactNode;
   actionButtons: ReactNode;
   children: ReactNode;
+  isTab?: boolean;
 }
 
 export default function GroupPageLayout({
   banner,
   actionButtons,
   children,
+  isTab = true,
 }: GroupPageLayoutProps) {
   const { activeTab, setTab } = useQueryTab<'recruit' | 'members'>(
     'tab',
@@ -37,33 +39,35 @@ export default function GroupPageLayout({
       {banner}
 
       {/* 탭 */}
-      <div className="flex w-full justify-center gap-[1.25rem] py-[1.25rem]">
-        <button
-          onClick={() => setTab('recruit')}
-          className={tabClass(activeTab === 'recruit')}
-        >
-          모집글
-        </button>
-
-        <div className="flex items-center gap-[0.2rem]">
+      {isTab && (
+        <div className="flex w-full justify-center gap-[1.25rem] py-[1.25rem]">
           <button
-            onClick={() => setTab('members')}
-            className={tabClass(activeTab === 'members')}
+            onClick={() => setTab('recruit')}
+            className={tabClass(activeTab === 'recruit')}
           >
-            참여멤버
+            모집글
           </button>
-          <span
-            className={clsx(
-              'flex h-[1.25rem] w-[1.25rem] items-center justify-center rounded-full text-[0.75rem]',
-              activeTab === 'members'
-                ? 'bg-purple-700 text-gray-100'
-                : 'bg-[#6E00B8] text-gray-300',
-            )}
-          >
-            {membersCount}
-          </span>
+
+          <div className="flex items-center gap-[0.2rem]">
+            <button
+              onClick={() => setTab('members')}
+              className={tabClass(activeTab === 'members')}
+            >
+              참여멤버
+            </button>
+            <span
+              className={clsx(
+                'flex h-[1.25rem] w-[1.25rem] items-center justify-center rounded-full text-[0.75rem]',
+                activeTab === 'members'
+                  ? 'bg-purple-700 text-gray-100'
+                  : 'bg-[#6E00B8] text-gray-300',
+              )}
+            >
+              {membersCount}
+            </span>
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="flex gap-[1.25rem]">
         {/* 메인 본문 */}
