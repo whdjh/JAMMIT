@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
-import { useForm, FormProvider, Controller } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import ModalWrapper from './ModalWrapper';
 import ProfileImageUpload from '../ProfileImageUpload';
-import TextArea from '../Textarea';
 import Button from '../Button';
 import { EditFormData } from '@/types/modal';
 import TagSection from '../TagSection';
@@ -42,7 +41,7 @@ export default function ModalEdit({
     mode: 'onChange',
   });
 
-  const { handleSubmit, control, setValue, watch } = methods;
+  const { handleSubmit, setValue, watch } = methods;
 
   const imageFile = watch('image');
 
@@ -96,7 +95,7 @@ export default function ModalEdit({
             onFileChange={handleFileChange}
           />
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 pb-4">
             {tagSections.map(
               ({ key, label, tags, initialSelected, onChange }) => (
                 <TagSection
@@ -108,21 +107,6 @@ export default function ModalEdit({
                 />
               ),
             )}
-          </div>
-
-          <div className="flex flex-col gap-2 pt-2 pb-2">
-            <p className="text-lg font-semibold">자기소개(선택)</p>
-            <Controller
-              name="introduction"
-              control={control}
-              render={({ field }) => (
-                <TextArea
-                  placeholder="세션에 대한 간단한 소개 남겨주세요."
-                  value={field.value}
-                  onChange={field.onChange}
-                />
-              )}
-            />
           </div>
 
           <Button
