@@ -1,0 +1,24 @@
+export enum Genre {
+  ROCK_METAL = 'ROCK_METAL', //락, 메탈 분리 필요
+  POP = 'POP',
+  BALLAD = 'BALLAD',
+  INDIE = 'INDIE',
+  ALTERNATIVE = 'ALTERNATIVE',
+  JAZZ = 'JAZZ',
+  PUNK = 'PUNK',
+  ACOUSTIC = 'ACOUSTIC',
+  FOLK = 'FOLK',
+  RNB = 'RNB',
+  KEYBOARD = 'KEYBOARD',
+}
+
+export enum BandSession {
+  VOCAL = 'VOCAL',
+  ELECTRIC_GUITAR = 'ELECTRIC_GUITAR',
+  DRUM = 'DRUM',
+  ACOUSTIC_GUITAR = 'ACOUSTIC_GUITAR',
+  BASS = 'BASS',
+  STRING_INSTRUMENT = 'STRING_INSTRUMENT',
+  PERCUSSION = 'PERCUSSION',
+  //건반 추가 필요
+}
