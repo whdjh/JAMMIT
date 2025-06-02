@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import { DayPicker } from 'react-day-picker';
-import ArrowRight from '@/assets/icons/ic_arrow_right.svg';
-import ArrowLeft from '@/assets/icons/ic_arrow_left.svg';
+// import ArrowRight from '@/assets/icons/ic_arrow_right.svg';
+// import ArrowLeft from '@/assets/icons/ic_arrow_left.svg';
 
 import { cn } from '@/lib/utils';
 
@@ -55,10 +55,10 @@ function Calendar({
         day_hidden: 'invisible',
         ...classNames,
       }}
-      components={{
-        IconLeft: () => <ArrowLeft />,
-        IconRight: () => <ArrowRight />,
-      }}
+      // components={{
+      //   IconLeft: () => <ArrowLeft />,
+      //   IconRight: () => <ArrowRight />,
+      // }}
       {...props}
     />
   );
