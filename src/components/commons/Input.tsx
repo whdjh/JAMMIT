@@ -64,10 +64,10 @@ function Input({
   const IsPwd = type === 'password';
   const [showPassword, setShowPassword] = useState(false);
   const sizeClass = {
-    // 402px
-    sm: 'w-[25.125rem]',
-    // 447px
-    md: 'w-[27.9375rem]',
+    // 400px
+    sm: 'w-[25rem]',
+    // 448px
+    md: 'w-[28rem]',
     lg: 'w-auto',
   }[size || 'lg'];
 
@@ -125,7 +125,7 @@ function Input({
             }
           }}
           {...rest}
-          className={`h-[2.75rem] w-full rounded border-0 bg-[#34343A] px-[1rem] py-[0.625rem] ${
+          className={`h-[2.75rem] w-full rounded-lg border-0 bg-[#34343A] px-[1rem] py-[0.625rem] ${
             IsError
               ? 'border-red-500 focus-within:border-red-500 focus-within:ring-red-500'
               : 'focus-within:ring-0 focus-within:outline-none'

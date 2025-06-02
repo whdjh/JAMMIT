@@ -5,7 +5,7 @@ import HeartRating from '../HeartRating';
 import TextArea from '../Textarea';
 import Button from '../Button';
 import { ReviewFormData } from '@/types/modal';
-import TagSelector from '@/components/commons/TagSelector';
+import TagSection from '../TagSection';
 
 const REVIEW_TAGS = [
   '연주 실력이 좋아요',
@@ -41,12 +41,20 @@ export default function ModalReview({ onCancel, onSubmit }: ModalReviewProps) {
 
   const handleTagChange = useCallback(
     (selected: string[]) => {
-      setTimeout(() => {
-        setValue('tags', selected);
-      }, 0);
+      setValue('tags', selected);
     },
     [setValue],
   );
+
+  const tagSections = [
+    {
+      key: 'tags',
+      label: '태그',
+      tags: REVIEW_TAGS,
+      initialSelected: tags,
+      onChange: handleTagChange,
+    },
+  ];
 
   return (
     <ModalWrapper
@@ -75,12 +83,17 @@ export default function ModalReview({ onCancel, onSubmit }: ModalReviewProps) {
             <div className="flex flex-col gap-2">
               <p className="text-lg font-semibold">어떤 사람인가요?</p>
               <div className="flex flex-col gap-1">
-                <TagSelector
-                  mode="selectable"
-                  tags={REVIEW_TAGS}
-                  initialSelected={tags}
-                  onChange={handleTagChange}
-                />
+                {tagSections.map(
+                  ({ key, label, tags, initialSelected, onChange }) => (
+                    <TagSection
+                      key={key}
+                      label={label}
+                      tags={tags}
+                      initialSelected={initialSelected}
+                      onChange={onChange}
+                    />
+                  ),
+                )}
               </div>
             </div>
 
