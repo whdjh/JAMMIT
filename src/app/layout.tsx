@@ -1,6 +1,7 @@
 import 'pretendard/dist/web/variable/pretendardvariable.css';
 import Layout from '@/components/commons/Layout';
 import '@/styles/globals.css';
+import Providers from './providers';
 
 export default function RootLayout({
   children,
@@ -10,7 +11,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <Layout>{children}</Layout>
+        <Providers>
+          <Layout>{children}</Layout>
+        </Providers>
       </body>
     </html>
   );

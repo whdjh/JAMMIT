@@ -14,6 +14,9 @@ import {
   SubmitHandler,
   useForm,
 } from 'react-hook-form';
+import { useSignupMutation } from '@/hooks/queries/user/useSignupMutation';
+import { GENRE_KR_TO_ENUM, SESSION_KR_TO_ENUM } from '@/constants/tagsMapping';
+import { useRouter } from 'next/navigation';
 
 interface FormValues {
   image: File;
@@ -23,6 +26,7 @@ interface FormValues {
 }
 
 export default function SignupStep2Page() {
+  const router = useRouter();
   const { email, name, password } = useSignupStore();
   const methods = useForm<FormValues>({
     mode: 'all',
@@ -68,18 +72,29 @@ export default function SignupStep2Page() {
     },
   ];
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const { mutateAsync } = useSignupMutation();
+
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const preferredGenres = data.genre.map((kr) => GENRE_KR_TO_ENUM[kr]);
+    const preferredBandSessions = data.session.map(
+      (kr) => SESSION_KR_TO_ENUM[kr],
+    );
+
+    // TODO: 프로필 업데이트 기능 추가
     const fullData = {
-      ...data,
       email,
-      name,
+      username: name,
       password,
+      nickname: data.nickname,
+      preferredGenres,
+      preferredBandSessions,
     };
 
-    console.log('회원가입 최종 데이터', fullData);
-    useSignupStore.getState().resetSignupData();
+    await mutateAsync(fullData);
 
+    useSignupStore.getState().resetSignupData();
     reset();
+    router.push('/signup/step1');
   };
 
   return (
