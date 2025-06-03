@@ -23,6 +23,7 @@ interface DropdownProps {
   isOpen?: boolean;
   /** 외부에서 드롭다운 상태를 변경하는 함수 */
   setIsOpen?: (isOpen: boolean) => void;
+  placeholder?: string;
 }
 
 export default function Dropdown({
@@ -36,6 +37,7 @@ export default function Dropdown({
   value,
   isOpen: externalIsOpen,
   setIsOpen: externalSetIsOpen,
+  placeholder = '',
 }: DropdownProps) {
   const sizeClass = {
     sm: 'w-[6.875rem]',
@@ -44,12 +46,11 @@ export default function Dropdown({
   }[size || 'lg'];
 
   const [internalIsOpen, setInternalIsOpen] = useState(false);
-  const [selectedDropdownMenu, setSelectedDropdownMenu] = useState(
-    value || menuOptions[0] || '',
-  );
+  const [selectedDropdownMenu, setSelectedDropdownMenu] = useState(value || '');
   const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
   const setIsOpen = externalSetIsOpen || setInternalIsOpen;
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const displayValue = selectedDropdownMenu || '';
 
   useClickOutside(dropdownRef, () => setIsOpen(false));
 
@@ -76,11 +77,23 @@ export default function Dropdown({
           ) : prefixIcon ? (
             <>
               {prefixIcon}
-              <span>{selectedDropdownMenu}</span>
+              <input
+                type="text"
+                value={displayValue}
+                placeholder={placeholder}
+                readOnly
+                className="bg-transparent text-left text-gray-100 outline-none placeholder:text-gray-400"
+              />
             </>
           ) : (
             <>
-              <span className="hidden sm:inline">{selectedDropdownMenu}</span>
+              <input
+                type="text"
+                value={displayValue}
+                placeholder={placeholder}
+                readOnly
+                className="bg-transparent text-left text-gray-100 outline-none placeholder:text-gray-400"
+              />
               {surfixIcon}
             </>
           )}
