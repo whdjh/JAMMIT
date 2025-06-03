@@ -1,10 +1,12 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { ImgCard01, ImgCard02, ImgCard03, ImgCard04 } from '@/assets/images';
 import { RecruitCardData } from '@/types/card';
 import Link from 'next/link';
 import { Card } from '@/components/commons/Card';
 import { CARD_STATE } from '@/constants/card';
+import { BandSession, Genre } from '@/types/tags';
+import MultiSelectDropdown from '@/components/commons/MultiSelectDropdown';
 
 export default function RecruitList() {
   const mockRecruits = [
@@ -73,7 +75,31 @@ export default function RecruitList() {
       ],
     },
   ];
-
+  // 장르, 세션
+  const [genres, setGenres] = useState<Genre[]>([]);
+  const [sesstion, setSesstion] = useState<BandSession[]>([]);
+  const GENRE_OPTIONS = [
+    // { label: '락', value: Genre. },
+    { label: '메탈', value: Genre.ROCK_METAL },
+    { label: '팝', value: Genre.POP },
+    { label: '발라드', value: Genre.BALLAD },
+    { label: 'R&B', value: Genre.RNB },
+    { label: '인디', value: Genre.INDIE },
+    { label: '얼터너티브', value: Genre.ALTERNATIVE },
+    { label: '재즈', value: Genre.JAZZ },
+    { label: '펑크', value: Genre.PUNK },
+    { label: '어쿠스틱', value: Genre.ACOUSTIC },
+    { label: '포크', value: Genre.FOLK },
+  ];
+  const SESSION_OPTIONS = [
+    { label: '보컬', value: BandSession.VOCAL },
+    { label: '일렉기타', value: BandSession.ELECTRIC_GUITAR },
+    { label: '통기타', value: BandSession.ACOUSTIC_GUITAR },
+    { label: '베이스', value: BandSession.BASS },
+    { label: '드럼', value: BandSession.DRUM },
+    { label: '타악기', value: BandSession.PERCUSSION },
+    { label: '현악기', value: BandSession.STRING_INSTRUMENT },
+  ];
   return (
     <div className="pc:max-w-[84rem] mx-auto mt-8">
       <div className="relative mb-[65px] h-[15rem] overflow-hidden rounded-lg bg-[#2B2B30]">
@@ -84,7 +110,22 @@ export default function RecruitList() {
           </p>
         </div>
       </div>
-      <div className="mt-[65px] mb-[29px] flex gap-2">ㅇ</div>
+      <div className="mt-[65px] mb-[29px]">
+        <div className="flex gap-2">
+          <MultiSelectDropdown
+            label="장르"
+            options={GENRE_OPTIONS}
+            selected={genres}
+            onChange={setGenres}
+          />
+          <MultiSelectDropdown
+            label="세션"
+            options={SESSION_OPTIONS}
+            selected={sesstion}
+            onChange={setSesstion}
+          />
+        </div>
+      </div>
       <div className="pc:grid-cols-4 grid grid-cols-1 gap-x-5 gap-y-10">
         {mockRecruits.map((item: RecruitCardData) => (
           <Link key={item.id} href={`de/${item.id}`}>
