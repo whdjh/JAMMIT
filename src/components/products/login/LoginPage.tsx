@@ -3,7 +3,10 @@
 import AuthCard from '@/components/commons/AuthCard';
 import Button from '@/components/commons/Button';
 import Input from '@/components/commons/Input';
+import { useLoginMutation } from '@/hooks/queries/auth/useLoginMutaion';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { setAccessToken, setRefreshTokenToCookie } from '@/utils/token';
 
 interface FormValues {
   email: string;
@@ -11,6 +14,7 @@ interface FormValues {
 }
 
 export default function LoginPage() {
+  const router = useRouter();
   const methods = useForm<FormValues>({
     mode: 'all',
     defaultValues: { email: '', password: '' },
@@ -21,8 +25,14 @@ export default function LoginPage() {
     reset,
   } = methods;
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    alert('로그인' + JSON.stringify(data));
+  const { mutateAsync } = useLoginMutation();
+
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const result = await mutateAsync(data);
+    const { accessToken, refreshToken } = result;
+    setAccessToken(accessToken);
+    setRefreshTokenToCookie(refreshToken);
+    router.push('/');
     reset();
   };
 
