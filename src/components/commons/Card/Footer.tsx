@@ -33,7 +33,7 @@ export default function Footer({
         return (
           <div className="group relative">
             <span className="text-[var(--primary)]">{text}</span> 명{cardStatus}
-            <ul className="absolute right-[0px] bottom-[2.125rem] hidden rounded-xl bg-[#29292C] group-hover:block">
+            <ul className="absolute right-[0px] bottom-[2.125rem] hidden rounded-lg bg-[var(--gray-100)] group-hover:block">
               {member.map((item) => (
                 <li
                   key={item.name}
