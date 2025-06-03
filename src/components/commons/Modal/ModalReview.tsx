@@ -60,12 +60,15 @@ export default function ModalReview({ onCancel, onSubmit }: ModalReviewProps) {
     <ModalWrapper
       title="리뷰쓰기"
       onClose={onCancel}
-      className="relative w-full bg-white p-6 text-black"
+      className="relative h-auto w-[32.5rem] rounded-lg bg-[#242429] p-[1.5rem] text-gray-100"
     >
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col gap-3">
-            <div className="flex flex-col gap-2">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-[2rem]"
+        >
+          <div className="flex flex-col gap-[2rem]">
+            <div className="flex flex-col gap-[0.75rem]">
               <p className="text-lg font-semibold">만족스러운 경험이었나요?</p>
               <Controller
                 name="rating"
@@ -80,24 +83,21 @@ export default function ModalReview({ onCancel, onSubmit }: ModalReviewProps) {
               />
             </div>
 
-            <div className="flex flex-col gap-2">
-              <p className="text-lg font-semibold">어떤 사람인가요?</p>
-              <div className="flex flex-col gap-1">
-                {tagSections.map(
-                  ({ key, label, tags, initialSelected, onChange }) => (
-                    <TagSection
-                      key={key}
-                      label={label}
-                      tags={tags}
-                      initialSelected={initialSelected}
-                      onChange={onChange}
-                    />
-                  ),
-                )}
+            <div className="flex flex-col gap-[0.75rem]">
+              <div className="flex flex-col gap-[0.5rem]">
+                {tagSections.map(({ key, tags, initialSelected, onChange }) => (
+                  <TagSection
+                    key={key}
+                    label={'##님과의 합주 경험은 어땠나요?'} // TODO: API 사용자 정보 불러와서 교체 필요
+                    tags={tags}
+                    initialSelected={initialSelected}
+                    onChange={onChange}
+                  />
+                ))}
               </div>
             </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-[0.75rem]">
               <p className="text-lg font-semibold">
                 경험에 대해 자유롭게 남겨주세요.(선택)
               </p>

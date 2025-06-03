@@ -15,7 +15,6 @@ describe('ModalReview 렌데링 테스트', () => {
     render(<ModalReview onSubmit={mockOnSubmit} onCancel={mockOnCancel} />);
     expect(screen.getByText('리뷰쓰기')).toBeInTheDocument();
     expect(screen.getByText('만족스러운 경험이었나요?')).toBeInTheDocument();
-    expect(screen.getByText('어떤 사람인가요?')).toBeInTheDocument();
     expect(
       screen.getByText('경험에 대해 자유롭게 남겨주세요.(선택)'),
     ).toBeInTheDocument();
