@@ -7,6 +7,7 @@ import { useLoginMutation } from '@/hooks/queries/auth/useLoginMutaion';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { setAccessToken, setRefreshTokenToCookie } from '@/utils/token';
+import { queryClient } from '@/lib/react-query';
 
 interface FormValues {
   email: string;
@@ -33,6 +34,7 @@ export default function LoginPage() {
     setAccessToken(accessToken);
     setRefreshTokenToCookie(refreshToken);
     router.push('/');
+    queryClient.invalidateQueries({ queryKey: ['me'] });
     reset();
   };
 

@@ -65,11 +65,14 @@ export default function Dropdown({
   };
 
   return (
-    <div className="h-[2.75rem] w-auto" ref={dropdownRef}>
+    <div
+      className={`w-auto ${isProfile ? 'h-auto' : 'h-[2.75rem]'}`}
+      ref={dropdownRef}
+    >
       <div className="relative">
         <button
           onClick={handleDropdownMenu}
-          className={`flex items-center justify-between gap-[0.625rem] rounded-lg border-0 bg-[#34343A] px-[1rem] py-[0.625rem] text-gray-100 ${sizeClass} ${isProfile ? 'h-[5rem] w-[5rem] border-none p-0' : ''}`}
+          className={`flex items-center justify-between gap-[0.625rem] rounded-lg border-0 bg-[#34343A] text-gray-100 ${sizeClass} ${isProfile ? 'h-auto w-auto border-none bg-transparent p-0' : 'px-[1rem] py-[0.625rem]'}`}
           type="button"
         >
           {isProfile ? (
@@ -100,7 +103,7 @@ export default function Dropdown({
         </button>
 
         {isOpen && (
-          <div className="absolute z-50">
+          <div className={`absolute z-50 ${isProfile && 'w-[8.875rem]'}`}>
             <DropdownMenuList
               menuOptions={menuOptions}
               onSelect={handleSelect}
