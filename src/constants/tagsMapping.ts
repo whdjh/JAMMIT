@@ -1,8 +1,8 @@
 import { Genre, BandSession } from '@/types/tags';
 
 export const GENRE_KR_TO_ENUM: Record<string, Genre> = {
-  락: Genre.ROCK_METAL,
-  메탈: Genre.ROCK_METAL, // 락, 메탈 일단 동일하게 설정
+  락: Genre.ROCK,
+  메탈: Genre.METAL,
   팝: Genre.POP,
   발라드: Genre.BALLAD,
   'R&B': Genre.RNB,
@@ -19,7 +19,7 @@ export const SESSION_KR_TO_ENUM: Record<string, BandSession> = {
   일렉기타: BandSession.ELECTRIC_GUITAR,
   통기타: BandSession.ACOUSTIC_GUITAR,
   베이스: BandSession.BASS,
-  // '건반': BandSession.KEYBOARD, <- 추가 필요
+  건반: BandSession.KEYBOARD,
   드럼: BandSession.DRUM,
   타악기: BandSession.PERCUSSION,
   현악기: BandSession.STRING_INSTRUMENT,

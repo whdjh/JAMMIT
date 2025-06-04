@@ -4,8 +4,16 @@ import AuthCard from '@/components/commons/AuthCard';
 import Button from '@/components/commons/Button';
 import Input from '@/components/commons/Input';
 import { useSignupStore } from '@/stores/useSignupStore';
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import {
+  FormProvider,
+  SubmitHandler,
+  useForm,
+  useWatch,
+} from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import debounce from 'lodash.debounce';
+import { useCallback, useEffect, useState } from 'react';
+import { checkEmailDuplicate } from '@/lib/auth/signup';
 
 interface FormValues {
   email: string;
@@ -23,9 +31,56 @@ export default function SignUpStep1Page() {
   const {
     formState: { isValid },
     watch,
+    setError,
+    clearErrors,
   } = methods;
 
+  const email = useWatch({ name: 'email', control: methods.control });
   const password = watch('password');
+  const [checking, setChecking] = useState(false);
+  const [isDuplicate, setIsDuplicate] = useState<boolean | null>(null);
+  const [duplicateMessage, setDuplicateMessage] = useState<string | null>(null);
+  const isValidEmailFormat = (email: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const debounceCheckEmail = useCallback(
+    debounce(async (emailToCheck: string) => {
+      setChecking(true);
+      try {
+        const exists = await checkEmailDuplicate(emailToCheck);
+        setIsDuplicate(exists);
+        if (exists) {
+          setDuplicateMessage('이미 사용 중인 이메일입니다.');
+        } else {
+          setDuplicateMessage('사용 가능한 이메일입니다.');
+        }
+      } catch {
+        setDuplicateMessage('중복 검사 중 오류가 발생했습니다.');
+        setIsDuplicate(null);
+      } finally {
+        setChecking(false);
+      }
+    }, 500),
+    [],
+  );
+
+  useEffect(() => {
+    if (!email) {
+      setDuplicateMessage(null);
+      return;
+    }
+    const isValidFormat = isValidEmailFormat(email);
+    if (!isValidFormat) {
+      setDuplicateMessage(null);
+      setIsDuplicate(null);
+      return;
+    }
+
+    debounceCheckEmail(email);
+    return () => {
+      debounceCheckEmail.cancel();
+    };
+  }, [email, setError, clearErrors]);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     useSignupStore.getState().setStep1Data(data);
@@ -42,19 +97,30 @@ export default function SignUpStep1Page() {
             className="w-full"
           >
             <div className="flex flex-col gap-[1.5rem]">
-              <Input
-                name="email"
-                type="text"
-                label="아이디"
-                placeholder="이메일을 입력해주세요."
-                rules={{
-                  required: '이메일은 필수 입력입니다.',
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: '올바른 이메일 형식을 입력해주세요.',
-                  },
-                }}
-              />
+              <div>
+                <Input
+                  name="email"
+                  type="text"
+                  label="아이디"
+                  placeholder="이메일을 입력해주세요."
+                  rules={{
+                    required: '이메일은 필수 입력입니다.',
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: '올바른 이메일 형식을 입력해주세요.',
+                    },
+                  }}
+                />
+                {duplicateMessage && (
+                  <p
+                    className={`mt-3 text-sm ${
+                      isDuplicate ? 'text-red-500' : 'text-[#bf5eff]'
+                    }`}
+                  >
+                    {duplicateMessage}
+                  </p>
+                )}
+              </div>
               <Input
                 name="name"
                 type="text"
@@ -94,9 +160,9 @@ export default function SignUpStep1Page() {
               size="large"
               className="mt-[2.5rem] w-full"
               type="submit"
-              disabled={!isValid}
+              disabled={!isValid || checking || isDuplicate === true}
             >
-              다음
+              {checking ? '확인 중...' : '다음'}
             </Button>
           </form>
         </FormProvider>

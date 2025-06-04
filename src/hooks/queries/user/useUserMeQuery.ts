@@ -5,7 +5,7 @@ export const useUserMeQuery = () =>
   useQuery({
     queryKey: ['me'], // Query Key Factory 사용 고민 필요
     queryFn: async () => {
-      const response = await instance.get('/jammit/user');
+      const response = await instance.get('/user');
       const data = response.data;
 
       if ('success' in data && !data.success) {
