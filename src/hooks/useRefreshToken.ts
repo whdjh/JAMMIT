@@ -6,6 +6,7 @@ import {
   getRefreshTokenFromCookie,
   setAccessToken,
 } from '@/utils/token';
+import { queryClient } from '@/lib/react-query';
 
 export const useRefreshToken = () => {
   useEffect(() => {
@@ -22,6 +23,7 @@ export const useRefreshToken = () => {
         .then((json) => {
           if (json.success) {
             setAccessToken(json.result.accessToken);
+            queryClient.invalidateQueries({ queryKey: ['me'] });
           } else {
             console.log('리프레시 실패');
           }

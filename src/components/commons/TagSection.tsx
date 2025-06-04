@@ -16,7 +16,7 @@ function TagSection({
 }: TagSectionProps) {
   return (
     <div className="flex flex-col gap-2">
-      <p className="pt-2 text-lg font-semibold">{label}</p>
+      <p className="pt-2 text-lg font-semibold text-gray-100">{label}</p>
       <div className="flex flex-col gap-1">
         <TagSelector
           mode="selectable"

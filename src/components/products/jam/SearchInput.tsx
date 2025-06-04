@@ -4,7 +4,9 @@ import { useEffect, useRef } from 'react';
 import SearchIcon from '@/assets/icons/ic_search.svg';
 
 interface SearchInputProps {
+  /** 입력한 주소 */
   value: string;
+  /** 주소 선택시 값 전달 */
   onChange: (val: string) => void;
 }
 

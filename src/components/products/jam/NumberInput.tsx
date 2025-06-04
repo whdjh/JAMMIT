@@ -3,8 +3,11 @@ import MinusIcon from '@/assets/icons/ic_minus.svg';
 import PlusIcon from '@/assets/icons/ic_plus.svg';
 
 interface NumberInputProps {
+  /** 현재 숫자 값 */
   count: number;
+  /** 값이 변경될 때 사용되는 콜백 함수 */
   onChange: (newCount: number) => void;
+  /** 최소값 */
   min?: number;
 }
 

@@ -66,8 +66,8 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
   }, [value]);
 
   const displayValue = date
-    ? format(date, 'yyyy-MM-dd hh:mm a')
-    : '날짜와 시간을 선택해주세요';
+    ? format(date, 'yy-MM-dd hh:mm a')
+    : '날짜와 시간 선택하세요';
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>

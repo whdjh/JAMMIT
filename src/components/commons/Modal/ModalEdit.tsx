@@ -86,16 +86,19 @@ export default function ModalEdit({
     <ModalWrapper
       title="프로필 수정하기"
       onClose={onCancel}
-      className="relative mx-auto max-h-[80vh] w-full max-w-md overflow-y-auto rounded-lg bg-white p-4 text-black shadow-lg"
+      className="relative h-auto w-[32.5rem] max-w-md overflow-y-auto rounded-lg bg-[#242429] p-[1.5rem]"
     >
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-[1.5rem]"
+        >
           <ProfileImageUpload
             imageFile={imageFile}
             onFileChange={handleFileChange}
           />
 
-          <div className="flex flex-col gap-4 pb-4">
+          <div className="flex flex-col gap-[1.5rem]">
             {tagSections.map(
               ({ key, label, tags, initialSelected, onChange }) => (
                 <TagSection
