@@ -12,6 +12,7 @@
   --gray-50: #68696c;
   --gray-400:#9CA3AF;
   --gray-100:#29292C;
+  --gray-600:#4b5563;
 }
 
 @theme {
@@ -119,6 +120,7 @@
     -webkit-box-shadow: 0 0 0 1000px #34343a inset;
     -webkit-text-fill-color: white;
   }
+ 
 }
 
 ::-webkit-scrollbar {
