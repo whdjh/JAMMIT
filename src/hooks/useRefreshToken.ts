@@ -14,7 +14,7 @@ export const useRefreshToken = () => {
     const refresh = getRefreshTokenFromCookie();
 
     if (!access && refresh) {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/jammit/auth/refresh`, {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ refreshToken: refresh }),
