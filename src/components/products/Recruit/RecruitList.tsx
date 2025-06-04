@@ -79,8 +79,8 @@ export default function RecruitList() {
   const [genres, setGenres] = useState<Genre[]>([]);
   const [sesstion, setSesstion] = useState<BandSession[]>([]);
   const GENRE_OPTIONS = [
-    // { label: '락', value: Genre. },
-    { label: '메탈', value: Genre.ROCK_METAL },
+    { label: '락', value: Genre.ROCK },
+    { label: '메탈', value: Genre.METAL },
     { label: '팝', value: Genre.POP },
     { label: '발라드', value: Genre.BALLAD },
     { label: 'R&B', value: Genre.RNB },
