@@ -14,5 +14,5 @@ export const useUserMeQuery = () =>
 
       return data;
     },
-    retry: false,
+    retry: true,
   });
