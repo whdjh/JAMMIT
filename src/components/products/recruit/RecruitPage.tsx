@@ -1,15 +1,17 @@
 'use client';
 import React, { useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import RecruitFeed from '@/components/commons/RecruitFeed';
 import { getLiked } from '@/lib/wish/wish';
 import { BandSession, Genre } from '@/types/tags';
-import { makeWishQueryKey, WishProps } from '@/types/wish';
+import { makeWishQueryKey, RecruitPageProps } from '@/types/wish';
+import RecruitHeader from '@/components/commons/RecruitHeader';
+import InfinityScroll from '@/components/commons/InfinityScroll';
+import CardItem from '@/components/commons/Card/CardItem';
 
-export default function WishPage({
+export default function RecruitPage({
   defaultGenres,
   defaultSessions,
-}: WishProps) {
+}: RecruitPageProps) {
   // 장르, 세션
   const [genres, setGenres] = useState<Genre[]>(defaultGenres);
   const [sessions, setSessions] = useState<BandSession[]>(defaultSessions);
@@ -31,18 +33,24 @@ export default function WishPage({
 
   const flatData = data?.pages.flatMap((page) => page.gatherings) ?? [];
   return (
-    <RecruitFeed
-      genres={genres}
-      setGenres={setGenres}
-      sessions={sessions}
-      setSessions={setSessions}
-      data={flatData}
-      hasMore={!!hasNextPage && !isFetching}
-      onInView={() => {
-        if (hasNextPage && !isFetching) {
-          fetchNextPage();
-        }
-      }}
-    />
+    <div className="pc:max-w-[84rem] mx-auto mt-8 pb-[5rem]">
+      <RecruitHeader
+        genres={genres}
+        setGenres={setGenres}
+        sessions={sessions}
+        setSessions={setSessions}
+      />
+      <InfinityScroll
+        list={flatData}
+        item={(item) => <CardItem item={item} />}
+        emptyText=""
+        hasMore={!!hasNextPage && !isFetching}
+        onInView={() => {
+          if (hasNextPage && !isFetching) {
+            fetchNextPage();
+          }
+        }}
+      />
+    </div>
   );
 }

@@ -26,7 +26,7 @@ export const SESSION_OPTIONS = [
 ];
 
 const baseMock: RecruitCardData = {
-  id: '0',
+  id: 0,
   name: '기본 제목',
   author: '기본 작성자',
   genres: ['락', '팝'],
@@ -34,7 +34,6 @@ const baseMock: RecruitCardData = {
   totalRecruit: 5,
   totalCurrent: 3,
   recruitDeadline: '2025-07-01T23:59:59.000Z',
-  liked: false,
   member: [
     { name: '보컬', personnel: 1, total: 1 },
     { name: '기타', personnel: 1, total: 2 },
@@ -60,12 +59,11 @@ export const mockRecruits: RecruitCardData[] = Array.from({ length: 40 }).map(
 
     return {
       ...baseMock,
-      id: `${i + 1}`,
+      id: i + 1,
       name: `[${i + 1}] ${names[i % names.length]}`,
       author: authors[i % authors.length],
       genres: genrePool[i % genrePool.length],
       thumbnail: thumbnails[i % thumbnails.length],
-      liked: i % 3 === 0,
       totalCurrent: (i % 5) + 1,
     };
   },
