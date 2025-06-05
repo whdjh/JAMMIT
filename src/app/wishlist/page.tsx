@@ -1,39 +1,53 @@
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from '@tanstack/react-query';
-import { getLiked } from '@/lib/wish/wish';
-import WishPage from '@/components/products/wish/WishPage';
-import { makeWishQueryKey, Page } from '@/types/wish';
+'use client';
+import React, { useState } from 'react';
 import { BandSession, Genre } from '@/types/tags';
+import RecruitHeader from '@/components/commons/RecruitHeader';
+import { useWishStore } from '@/stores/useWishStore';
+import CardItem from '@/components/commons/Card/CardItem';
+import VirtualGrid from '@/components/commons/VirtualGrid';
+import { GENRE_OPTIONS } from '@/constants/checkbox';
 
-export default async function WishlistPage() {
-  const queryClient = new QueryClient();
-  const defaultGenres: Genre[] = [Genre.POP];
-  const defaultSessions: BandSession[] = [];
-
-  const queryKey = makeWishQueryKey({
-    genres: defaultGenres,
-    sessions: defaultSessions,
-    includeCanceled: false,
-  });
-  await queryClient.prefetchInfiniteQuery({
-    queryKey,
-    queryFn: ({ queryKey, pageParam = 0 }) => getLiked({ queryKey, pageParam }),
-    initialPageParam: 0,
-    getNextPageParam: (lastPage: Page) => {
-      return lastPage.currentPage + 1 < lastPage.totalPage
-        ? lastPage.currentPage + 1
-        : undefined;
+export default function Page() {
+  const [genres, setGenres] = useState<Genre[]>([]);
+  const [sessions, setSessions] = useState<BandSession[]>([]);
+  const data = useWishStore((s) => s.items);
+  const genreLabelToValueMap = GENRE_OPTIONS.reduce(
+    (acc, cur) => {
+      acc[cur.label] = cur.value;
+      return acc;
     },
+    {} as Record<string, Genre>,
+  );
+
+  const filteredData = data.filter((item) => {
+    const hasGenres = genres.length > 0;
+    const hasSessions = sessions.length > 0;
+    const genreMatched = item.genres.some((label) =>
+      genres.includes(genreLabelToValueMap[label]),
+    );
+    // const sessionMatched = item.member.some((m) =>
+    //   sessions.includes(m.session),
+    // );
+
+    if (!hasGenres && !hasSessions) return true;
+    if (hasGenres && genreMatched) return true;
+    // if (hasGenres && sessionMatched) return true;
+
+    return false;
   });
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <WishPage
-        defaultGenres={defaultGenres}
-        defaultSessions={defaultSessions}
+    <div className="pc:max-w-[84rem] mx-auto mt-8 pb-[5rem]">
+      <RecruitHeader
+        genres={genres}
+        setGenres={setGenres}
+        sessions={sessions}
+        setSessions={setSessions}
       />
-    </HydrationBoundary>
+      <VirtualGrid
+        list={filteredData}
+        item={(item) => <CardItem key={item.id} item={item} />}
+        emptyText="찜한 항목이 없습니다."
+      />
+    </div>
   );
 }

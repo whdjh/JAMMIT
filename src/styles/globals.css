@@ -10,8 +10,9 @@
   --purple-700:#9900ff;
   --bg-34343A: #34343a;
   --gray-50: #68696c;
-  --gray-400:#9CA3AF;
   --gray-100:#29292C;
+  --gray-400:#9CA3AF;
+  --gray-500:#6b7280;
   --gray-600:#4b5563;
   --purple-block:linear-gradient(to right, #9747FF 54%, #000000 100%);
 }

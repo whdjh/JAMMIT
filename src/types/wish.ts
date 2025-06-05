@@ -1,7 +1,7 @@
 import { RecruitCardData } from './card';
 import { BandSession, Genre } from './tags';
 
-export interface WishProps {
+export interface RecruitPageProps {
   defaultGenres: Genre[];
   defaultSessions: BandSession[];
 }
@@ -33,3 +33,16 @@ export function makeWishQueryKey(params: {
 }): WishQueryKey {
   return ['wish', params] as const;
 }
+
+export type FavoriteItem = Pick<
+  RecruitCardData,
+  | 'id'
+  | 'name'
+  | 'thumbnail'
+  | 'author'
+  | 'genres'
+  | 'recruitDeadline'
+  | 'totalCurrent'
+  | 'totalRecruit'
+  | 'member'
+>;

@@ -31,7 +31,6 @@ export default function Participating() {
     <Link key={item.id} href={`de/${item.id}`}>
       <Card.Thumbnail
         thumbnail={item.thumbnail}
-        liked={item.liked}
         alt={item.name}
         isLike={false}
       />

@@ -67,11 +67,7 @@ export default function InfinityScroll<T>({
         useWindowScroll
         components={{
           List: GridList,
-          Item: ({ children, ...props }) => (
-            <div {...props} className="w-full">
-              {children}
-            </div>
-          ),
+          Item: ({ children, ...props }) => <div {...props}>{children}</div>,
         }}
         itemContent={(index) => item(list[index])}
       />

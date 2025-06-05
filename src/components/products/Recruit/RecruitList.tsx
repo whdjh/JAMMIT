@@ -46,11 +46,7 @@ export default function RecruitList() {
       <div className="pc:grid-cols-4 grid grid-cols-2 gap-x-5 gap-y-10">
         {mockRecruits.map((item: RecruitCardData) => (
           <Link key={item.id} href={`de/${item.id}`}>
-            <Card.Thumbnail
-              thumbnail={item.thumbnail}
-              liked={item.liked}
-              alt={item.name}
-            />
+            <Card.Thumbnail thumbnail={item.thumbnail} alt={item.name} />
             <Card.TagList tags={item.genres} />
             <Card.TitleBlock title={item.name} author={item.author} />
             <Card.Footer
