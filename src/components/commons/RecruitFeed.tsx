@@ -1,12 +1,12 @@
 import React from 'react';
-import MultiSelectDropdown from './MultiSelectDropdown';
-import { GENRE_OPTIONS, SESSION_OPTIONS } from '@/constants/checkbox';
 import Link from 'next/link';
 import { Card } from './Card';
+import MultiSelectDropdown from './MultiSelectDropdown';
+import InfinityScroll from './InfinityScroll';
+import { GENRE_OPTIONS, SESSION_OPTIONS } from '@/constants/checkbox';
 import { CARD_STATE } from '@/constants/card';
 import { RecruitCardData } from '@/types/card';
 import { BandSession, Genre } from '@/types/tags';
-import InfinityScroll from './InfinityScroll';
 
 interface ViewProps {
   genres: Genre[];
