@@ -1,10 +1,10 @@
-import { postSignup } from '@/lib/auth/signup';
 import { handleAuthApiError } from '@/utils/authApiError';
+import { signup } from '@/utils/authService';
 import { useMutation } from '@tanstack/react-query';
 
 export const useSignupMutation = () =>
   useMutation({
-    mutationFn: postSignup,
+    mutationFn: signup,
 
     onSuccess: () => {
       alert('회원가입이 완료되었습니다!');

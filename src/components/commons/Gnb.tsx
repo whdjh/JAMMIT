@@ -7,8 +7,7 @@ import JammitLogo from '@/assets/icons/ic_jammit_logo.svg';
 import Dropdown from '@/components/commons/Dropdown';
 import { useRouter } from 'next/navigation';
 import { useUserMeQuery } from '@/hooks/queries/user/useUserMeQuery';
-import { clearAccessToken, removeRefreshTokenFromCookie } from '@/utils/token';
-import { queryClient } from '@/lib/react-query';
+import { logout } from '@/utils/authService';
 
 const PROFILE_OPTIONS = ['마이페이지', '로그아웃'];
 
@@ -32,10 +31,8 @@ export default function Gnb() {
     }
   };
 
-  const handleLogout = () => {
-    clearAccessToken();
-    removeRefreshTokenFromCookie();
-    queryClient.invalidateQueries({ queryKey: ['me'] });
+  const handleLogout = async () => {
+    await logout();
     router.push('/');
   };
 

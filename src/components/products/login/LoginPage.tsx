@@ -6,7 +6,6 @@ import Input from '@/components/commons/Input';
 import { useLoginMutation } from '@/hooks/queries/auth/useLoginMutaion';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { setAccessToken, setRefreshTokenToCookie } from '@/utils/token';
 import { queryClient } from '@/lib/react-query';
 
 interface FormValues {
@@ -29,10 +28,7 @@ export default function LoginPage() {
   const { mutateAsync } = useLoginMutation();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const result = await mutateAsync(data);
-    const { accessToken, refreshToken } = result;
-    setAccessToken(accessToken);
-    setRefreshTokenToCookie(refreshToken);
+    await mutateAsync(data);
     router.push('/');
     queryClient.invalidateQueries({ queryKey: ['me'] });
     reset();
