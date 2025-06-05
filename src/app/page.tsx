@@ -10,6 +10,7 @@ export default function Home() {
   const queryClient = new QueryClient();
   const defaultGenres: Genre[] = [Genre.POP];
   const defaultSessions: BandSession[] = [];
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <RecruitPage
