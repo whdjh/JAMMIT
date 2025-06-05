@@ -5,7 +5,7 @@ import { useQueryTab } from '@/hooks/useQueryTab';
 
 interface GroupPageLayoutProps {
   banner: ReactNode;
-  actionButtons: ReactNode;
+  actionButtons?: ReactNode;
   children: ReactNode;
   isTab?: boolean;
 }
@@ -69,7 +69,7 @@ export default function GroupPageLayout({
         </div>
       )}
 
-      <div className="flex gap-[1.25rem]">
+      <div className="flex gap-[1.25rem] pb-[3.875rem]">
         {/* 메인 본문 */}
         {children}
 

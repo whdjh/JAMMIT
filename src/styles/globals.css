@@ -13,10 +13,12 @@
   --gray-400:#9CA3AF;
   --gray-100:#29292C;
   --gray-600:#4b5563;
+  --purple-block:linear-gradient(to right, #9747FF 54%, #000000 100%);
 }
 
 @theme {
-  --breakpoint-pc: 62.5rem;
+  --breakpoint-pc: 84rem;
+  --breakpoint-tap: 46.5rem;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
