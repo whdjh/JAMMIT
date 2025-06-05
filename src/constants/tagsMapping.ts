@@ -24,3 +24,11 @@ export const SESSION_KR_TO_ENUM: Record<string, BandSession> = {
   타악기: BandSession.PERCUSSION,
   현악기: BandSession.STRING_INSTRUMENT,
 };
+
+export const SESSION_ENUM_TO_KR = Object.fromEntries(
+  Object.entries(SESSION_KR_TO_ENUM).map(([kr, en]) => [en, kr]),
+);
+
+export const GENRE_ENUM_TO_KR = Object.fromEntries(
+  Object.entries(GENRE_KR_TO_ENUM).map(([kr, en]) => [en, kr]),
+);

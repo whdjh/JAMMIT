@@ -4,9 +4,25 @@ import { useState } from 'react';
 import DefaultProfileImage from '@/assets/icons/ic_default_profile.svg';
 import EditIcon from '@/assets/icons/ic_edit.svg';
 import ModalEdit from '@/components/commons/Modal/ModalEdit';
+import { useUpdateProfile } from '@/hooks/queries/user/useUpdateProfile';
+import { useUserMeQuery } from '@/hooks/queries/user/useUserMeQuery';
+import { EditFormData } from '@/types/modal';
+import { BandSession, Genre } from '@/types/tags';
+import { SESSION_ENUM_TO_KR, GENRE_ENUM_TO_KR } from '@/constants/tagsMapping';
 
 export default function UserCard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const updateProfile = useUpdateProfile();
+  const { data: user, isLoading } = useUserMeQuery();
+
+  // TODO: 토큰 로직 리팩토링 이후 작업 시작
+  if (isLoading || !user) {
+    return (
+      <div className="flex h-[15.625rem] w-[full] items-center justify-center gap-[3.3125rem] bg-[#36114E]">
+        Loading...
+      </div>
+    );
+  }
 
   const handleProfileEdit = () => {
     setIsModalOpen(true);
@@ -16,9 +32,13 @@ export default function UserCard() {
     setIsModalOpen(false);
   };
 
-  const handleModalSubmit = () => {
-    // API연동
-    setIsModalOpen(false);
+  const handleModalSubmit = (data: EditFormData) => {
+    updateProfile.mutate(data, {
+      onSuccess: () => {
+        console.log(data);
+        setIsModalOpen(false);
+      },
+    });
   };
 
   return (
@@ -29,48 +49,57 @@ export default function UserCard() {
         </div>
         <div className="flex flex-col text-gray-100">
           <div className="flex items-center gap-[0.625rem]">
-            {/** API 수정된 후 불러오게 수정 */}
             <p className="text-[1.5rem] leading-[2.4rem] font-bold">
-              사용자닉네임
+              {user.username}
             </p>
             <button type="submit" onClick={handleProfileEdit}>
               <EditIcon width={18} height={18} />
             </button>
           </div>
-          <div className="flex items-center gap-[1rem] text-sm font-medium">
+          <div className="flex items-center gap-[0.5rem] text-sm font-medium">
             <p>담당 세션</p>
-            {/** API 수정된 후 여러개 불러오게 수정 */}
-            <div className="h-[2rem] w-auto rounded-lg bg-[#34343A] px-[0.75rem] py-[0.375rem]">
-              일렉 기타
-            </div>
+            {user.preferredBandSessions.map((session: BandSession) => (
+              <div
+                key={session}
+                className="h-[2rem] rounded-lg bg-[#34343A] px-[0.75rem] py-[0.375rem]"
+              >
+                {SESSION_ENUM_TO_KR[session]}
+              </div>
+            ))}
             <div className="h-[1.25rem] w-[0.0938rem] bg-gray-500" />
             <p>선호 장르</p>
-            {/** API 수정된 후 여러개 불러오게 수정 */}
-            <div className="h-[2rem] w-auto rounded-lg bg-[#34343A] px-[0.75rem] py-[0.375rem]">
-              팝
-            </div>
+            {user.preferredGenres.map((genre: Genre) => (
+              <div
+                key={genre}
+                className="h-[2rem] rounded-lg bg-[#34343A] px-[0.75rem] py-[0.375rem]"
+              >
+                {GENRE_ENUM_TO_KR[genre]}
+              </div>
+            ))}
             <div className="h-[1.25rem] w-[0.0938rem] bg-gray-500" />
             <p>개설모임수</p>
-            {/** API 수정된 후 불러오게 수정 아직 없음 */}
+            {/* TODO: API 업데이트 후 GET API 가져오기*/}
             <p>8</p>
             <div className="h-[1.25rem] w-[0.0938rem] bg-gray-500" />
             <p>작성글수</p>
-            {/** API 수정된 후 불러오게 수정 아직 없음 */}
+            {/* TODO: API 업데이트 후 GET API 가져오기*/}
             <p>20</p>
           </div>
         </div>
       </div>
 
       {isModalOpen && (
-        /** API 수정된 후 불러오게 수정 */
         <ModalEdit
           onCancel={handleModalCancel}
           onSubmit={handleModalSubmit}
+          // TODO: GET API 가져오기
           initialData={{
-            image: undefined,
-            session: ['일렉 기타'],
-            genre: ['록'],
-            introduction: '',
+            email: user.email,
+            password: null,
+            username: user.username,
+            image: user.profileImagePath,
+            preferredBandSessions: user.preferredBandSessions,
+            preferredGenres: user.preferredGenres,
           }}
         />
       )}
