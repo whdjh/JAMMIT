@@ -1,10 +1,18 @@
+'use client';
+
 import Image from 'next/image';
 import GroupInfoSection from './GroupInfoSection';
 import bannerImages from '@/constants/bannerImages';
 import GroupPageLayout from '@/components/commons/GroupPageLayout';
-import Button from '@/components/commons/Button';
+import { useQueryTab } from '@/hooks/useQueryTab';
+import MemberInfoSection from './MemberInfoSection';
 
 export default function GroupPage() {
+  const { activeTab } = useQueryTab<'recruit' | 'members'>('tab', 'recruit', [
+    'recruit',
+    'members',
+  ]);
+
   const groupData = {
     bannerImageIndex: 0,
     title: 'KPOP 위주로 합주해보실 세션 모집',
@@ -44,27 +52,21 @@ export default function GroupPage() {
           />
         </div>
       }
-      actionButtons={
-        <div className="flex flex-col gap-[1.25rem]">
-          <Button variant="solid" className="w-[22.75rem]">
-            수정하기
-          </Button>
-          <Button variant="outline" className="w-[22.75rem]">
-            삭제하기
-          </Button>
-        </div>
-      }
     >
-      <GroupInfoSection
-        title={groupData.title}
-        hostName={groupData.hostName}
-        location={groupData.location}
-        meetingDate={groupData.meetingDate}
-        closingDate={groupData.closingDate}
-        sessions={groupData.sessions}
-        genres={groupData.genres}
-        description={groupData.description}
-      />
+      {activeTab === 'recruit' ? (
+        <GroupInfoSection
+          title={groupData.title}
+          hostName={groupData.hostName}
+          location={groupData.location}
+          meetingDate={groupData.meetingDate}
+          closingDate={groupData.closingDate}
+          sessions={groupData.sessions}
+          genres={groupData.genres}
+          description={groupData.description}
+        />
+      ) : (
+        <MemberInfoSection />
+      )}
     </GroupPageLayout>
   );
 }
