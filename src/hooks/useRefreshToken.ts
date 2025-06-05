@@ -1,34 +1,16 @@
 'use client';
 
 import { useEffect } from 'react';
-import {
-  getAccessToken,
-  getRefreshTokenFromCookie,
-  setAccessToken,
-} from '@/utils/token';
-import { queryClient } from '@/lib/react-query';
+import { refreshAccessToken } from '@/utils/authService';
+import { tokenService } from '@/utils/tokenService';
 
 export const useRefreshToken = () => {
   useEffect(() => {
-    const access = getAccessToken();
-    const refresh = getRefreshTokenFromCookie();
-
-    if (!access && refresh) {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ refreshToken: refresh }),
-      })
-        .then((res) => res.json())
-        .then((json) => {
-          if (json.success) {
-            setAccessToken(json.result.accessToken);
-            queryClient.invalidateQueries({ queryKey: ['me'] });
-          } else {
-            console.log('리프레시 실패');
-          }
-        })
-        .catch(console.error);
+    const access = tokenService.getAccessToken();
+    if (!access) {
+      refreshAccessToken().catch((error) => {
+        console.error('토큰 갱신 실패', error);
+      });
     }
   }, []);
 };

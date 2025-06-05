@@ -11,3 +11,33 @@ export interface UserResponse {
   preferredGenres: Genre[];
   preferredBandSessions: BandSession[];
 }
+
+export interface UpdateProfileRequest {
+  email: string;
+  username: string;
+  password: string | null;
+  preferredGenres: Genre[];
+  preferredBandSessions: BandSession[];
+}
+
+export interface UpdateProfileResponse {
+  success: boolean;
+  code: number;
+  message: string;
+  result: {
+    id: number;
+    username: string;
+    email: string;
+    nickname: string;
+    profileImagePath: string;
+    createdAt: string;
+    updatedAt: string;
+    preferredGenres: Genre[];
+    preferredBandSessions: BandSession[];
+  };
+}
+
+export interface UpdateProfileImageRequest {
+  orgFileName: string;
+  profileImagePath: string;
+}

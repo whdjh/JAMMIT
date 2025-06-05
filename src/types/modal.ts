@@ -1,8 +1,12 @@
+import { BandSession, Genre } from './tags';
+
 export interface EditFormData {
+  email: string;
+  username: string;
+  password: string | null;
   image?: File;
-  session: string[];
-  genre: string[];
-  introduction: string;
+  preferredGenres: Genre[];
+  preferredBandSessions: BandSession[];
 }
 
 export interface ReviewFormData {
