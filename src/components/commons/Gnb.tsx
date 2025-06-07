@@ -2,12 +2,12 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import DefaultProfileImage from '@/assets/icons/ic_default_profile.svg';
 import JammitLogo from '@/assets/icons/ic_jammit_logo.svg';
 import Dropdown from '@/components/commons/Dropdown';
 import { useRouter } from 'next/navigation';
-import { useUserMeQuery } from '@/hooks/queries/user/useUserMeQuery';
 import { logout } from '@/utils/authService';
+import { useUserStore } from '@/stores/useUserStore';
+import ProfileImage from './ProfileImage';
 
 const PROFILE_OPTIONS = ['마이페이지', '로그아웃'];
 
@@ -15,8 +15,8 @@ export default function Gnb() {
   const router = useRouter();
   const pathname = usePathname();
 
-  const { data: user, isError, isLoading } = useUserMeQuery();
-  const isLoggedIn = !!user && !isError && !isLoading;
+  const user = useUserStore((state) => state.user);
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
 
   const navItems = [
     { href: '/', label: '모임 찾기' },
@@ -60,7 +60,7 @@ export default function Gnb() {
               <Dropdown
                 menuOptions={PROFILE_OPTIONS}
                 onSelect={handleProfileSelect}
-                singleIcon={<DefaultProfileImage width={40} height={40} />}
+                singleIcon={<ProfileImage src={user?.profileImagePath} />}
                 isProfile
               />
             ) : (
