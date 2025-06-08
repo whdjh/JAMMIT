@@ -4,7 +4,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { getLiked } from '@/lib/wish/wish';
-import WishPage from '@/components/products/recruit/RecruitPage';
+import WishPage from '@/components/products/Recruit/RecruitPage';
 import { makeWishQueryKey, Page } from '@/types/wish';
 import { BandSession, Genre } from '@/types/tags';
 

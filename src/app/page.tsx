@@ -1,4 +1,4 @@
-import RecruitPage from '@/components/products/recruit/RecruitPage';
+import RecruitPage from '@/components/products/Recruit/RecruitPage';
 import { BandSession, Genre } from '@/types/tags';
 import {
   dehydrate,
