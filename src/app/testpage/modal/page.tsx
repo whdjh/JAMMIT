@@ -3,9 +3,9 @@
 import { useState, useCallback } from 'react';
 import ModalInteraction from '@/components/commons/Modal/ModalInteraction';
 import ModalReview from '@/components/commons/Modal/ModalReview';
-import ModalEdit from '@/components/commons/Modal/ModalEdit';
+// import ModalEdit from '@/components/commons/Modal/ModalEdit';
 import { ReviewFormData } from '@/types/modal';
-import { EditFormData } from '@/types/modal';
+// import { EditFormData } from '@/types/modal';
 
 type ModalType = 'withCancel' | 'withoutCancel' | 'review' | 'edit' | null;
 
@@ -33,10 +33,10 @@ export default function Home() {
   }, []);
 
   /** API 연결부 */
-  const handleSubmitEdit = useCallback((data: EditFormData) => {
-    alert(JSON.stringify(data, null, 2));
-    setModalType(null);
-  }, []);
+  // const handleSubmitEdit = useCallback((data: EditFormData) => {
+  //   alert(JSON.stringify(data, null, 2));
+  //   setModalType(null);
+  // }, []);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-4">
@@ -81,7 +81,7 @@ export default function Home() {
         />
       )}
 
-      {modalType === 'edit' && (
+      {/* {modalType === 'edit' && (
         <ModalEdit
           onCancel={handleCloseModal}
           onSubmit={handleSubmitEdit}
@@ -92,7 +92,7 @@ export default function Home() {
             introduction: '',
           }}
         />
-      )}
+      )} */}
     </main>
   );
 }
