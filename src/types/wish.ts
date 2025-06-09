@@ -1,4 +1,4 @@
-import { RecruitCardData } from './card';
+import { GatheringCard } from './card';
 import { BandSession, Genre } from './tags';
 
 export interface RecruitPageProps {
@@ -12,7 +12,7 @@ export interface Page {
 }
 
 export interface WishResponse {
-  gatherings: RecruitCardData[];
+  gatherings: GatheringCard[];
   currentPage: number;
   totalPage: number;
   totalElements: number;

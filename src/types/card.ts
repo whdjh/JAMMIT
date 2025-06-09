@@ -1,29 +1,6 @@
 import { StaticImageData } from 'next/image';
 import { GenreType, BandSessionType, GatheringStatus } from './tags';
 
-export interface RecruitCardData {
-  id: number;
-  name: string;
-  place?: string;
-  thumbnail: StaticImageData;
-  gatheringDateTime?: string;
-  totalRecruit: number;
-  totalCurrent: number;
-  viewCount?: number;
-  recruitDeadline: string;
-  status?: string;
-  genres: string[];
-  creator: {
-    id: number;
-    nickname: string;
-  };
-  sessions: {
-    bandSession: string;
-    recruitCount: number;
-    currentCount: number;
-  }[];
-}
-
 // TODO: 진환님 다음과 같이 맞혀야될것 같아요
 export interface GatheringCard {
   /** 모임 id */
@@ -33,7 +10,7 @@ export interface GatheringCard {
   /** 모임 장소 */
   place: string;
   /** 썸네일 */
-  thumbnail: string;
+  thumbnail: StaticImageData;
   /** 모임 날짜 */
   gatheringDateTime: string;
   /** 전체 멤버수 */
@@ -58,5 +35,5 @@ export interface GatheringCard {
     bandSession: BandSessionType;
     recruitCount: number;
     currentCount: number;
-  };
+  }[];
 }
