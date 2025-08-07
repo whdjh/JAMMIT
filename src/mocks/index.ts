@@ -8,6 +8,8 @@ export async function initMocks() {
   } else {
     // 클라이언트 사이드
     const { worker } = await import('./browser');
-    await worker.start();
+    await worker.start({
+      onUnhandledRequest: 'bypass', // 처리되지 않은 요청은 무시
+    });
   }
 }
